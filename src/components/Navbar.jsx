@@ -26,7 +26,7 @@ export default function Navbar() {
             <p
               className={pathMatchRoute("/") ? "navbarListItemNameActive" : ""}
             >
-              Explore
+              Explorer
             </p>
           </li>
           <li className="navbarListItem" onClick={() => navigate("/offers")}>
@@ -40,7 +40,7 @@ export default function Navbar() {
                 pathMatchRoute("/offers") ? "navbarListItemNameActive" : ""
               }
             >
-              Offers
+              Offres
             </p>
           </li>
           <li className="navbarListItem" onClick={() => navigate("/profile")}>
@@ -54,7 +54,7 @@ export default function Navbar() {
                 pathMatchRoute("/profile") ? "navbarListItemNameActive" : ""
               }
             >
-              Profile
+              Profil
             </p>
           </li>
         </ul>

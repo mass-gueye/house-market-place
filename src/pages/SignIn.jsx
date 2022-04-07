@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ReactComponent as ArrowRighIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
+import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import VisibilityIcon from "../assets/svg/visibilityIcon.svg";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../context/AuthContext";
 
 export default function SignIn() {
-  const { notify } = useContext(AuthContext);
+  const { notify, auth } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -19,7 +19,6 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -78,7 +77,7 @@ export default function SignIn() {
           <div className="signInBar">
             <p className="signInText">Connexion</p>
             <button className="signInButton" disabled={!email || !password}>
-              <ArrowRighIcon fill="#ffffff" width="34px" height="34px" />
+              <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
             </button>
           </div>
         </form>

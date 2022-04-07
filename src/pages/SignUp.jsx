@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ReactComponent as ArrowRighIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
+import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import VisibilityIcon from "../assets/svg/visibilityIcon.svg";
 import { db } from "../firebase.config";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
@@ -12,7 +11,7 @@ import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import AuthContext from "../context/AuthContext";
 
 export default function SignUp() {
-  const { notify } = useContext(AuthContext);
+  const { notify,auth } = useContext(AuthContext);
 
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -26,7 +25,6 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const auth = getAuth();
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -105,7 +103,7 @@ export default function SignUp() {
           <div className="signUpBar">
             <p className="signUpText">Créer un compte</p>
             <button className="signUpButton">
-              <ArrowRighIcon fill="#ffffff" width="34px" height="34px" />
+              <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
             </button>
           </div>
         </form>

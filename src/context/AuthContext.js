@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ auth, notify, logout, checkStatus, loggedIn }}
+      value={{ auth, notify, logout, checkStatus, loggedIn, currentUser:auth.currentUser }}
     >
       {children}
     </AuthContext.Provider>
