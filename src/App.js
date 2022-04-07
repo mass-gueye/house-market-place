@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import Explore from "./pages/Explore";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -16,12 +18,15 @@ function App() {
           <Route exact path="/" element={<Explore />} />
           <Route exact path="/forgot-password" element={<ForgotPassword />} />
           <Route exact path="/offers" element={<Offers />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/profile" element={<PrivateRoute />}>
+            <Route exact path="/profile" element={<Profile />} />
+          </Route>
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/sign-up" element={<SignUp />} />
         </Routes>
         <Navbar />
       </Router>
+      <ToastContainer />
     </AuthProvider>
   );
 }

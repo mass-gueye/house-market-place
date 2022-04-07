@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowRighIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import VisibilityIcon from "../assets/svg/visibilityIcon.svg";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import AuthContext from "../context/AuthContext";
 
 export default function SignIn() {
-  const notify = () => toast("Wow so easy !");
+  const { notify } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -26,13 +25,12 @@ export default function SignIn() {
         email,
         password
       );
-      const user = await userCredential.user;
-      if (user) {
-        alert(user.displayName);
+      if (userCredential.user) {
         navigate("/");
       }
     } catch (error) {
-      console.log(error.message);
+      notify("mauvaises références d'identification", "");
+      console.log(error);
     }
   };
 
@@ -79,7 +77,7 @@ export default function SignIn() {
 
           <div className="signInBar">
             <p className="signInText">Connexion</p>
-            <button className="signInButton">
+            <button className="signInButton" disabled={!email || !password}>
               <ArrowRighIcon fill="#ffffff" width="34px" height="34px" />
             </button>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowRighIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import VisibilityIcon from "../assets/svg/visibilityIcon.svg";
@@ -9,8 +9,11 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import AuthContext from "../context/AuthContext";
 
 export default function SignUp() {
+  const { notify } = useContext(AuthContext);
+
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -39,12 +42,17 @@ export default function SignUp() {
       delete userFormData.password;
       userFormData.timestamp = serverTimestamp();
 
-      // // Add a new document in collection "listings"
-      await setDoc(doc(db, "users", newUser.uid), userFormData);
+      // // Add a new document in collection "users"
+      const userCollection = await setDoc(
+        doc(db, "users", newUser.uid),
+        userFormData
+      );
 
-      navigate("/");
+      if (newUser && userCollection) {
+        navigate("/");
+      }
     } catch (error) {
-      console.log(error.code, error.message);
+      notify(error.code);
     }
   };
 
