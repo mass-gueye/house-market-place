@@ -1,37 +1,22 @@
-// import React,{useState,useContext} from 'react'
 import { useParams } from "react-router-dom";
 import useFetchCollection from "../hooks/useFetchCollection";
-// import {
-//     doc,
-//     getDocs,
-//     query,
-//     startAfter,
-//     collection,
-//     where,
-//     limit,
-//     orderBy
-// } from "firebase/firestore"
-// import {db} from "../firebase.config"
+// import {deleteDoc, doc} from "firebase/firestore"
 // import AuthContext from "../context/AuthContext"
 import Spinner from "../components/Spinner";
+import ListingItem from "../components/ListingItem";
+// import { db } from "../firebase.config";
 
 export default function Category() {
   // const {notify} = useContext(AuthContext)
   const params = useParams();
-  // const [listings, setListings] = useState(null)
-  // [loading, setLoading] = useState(true)
   const { loading, data: listings } = useFetchCollection(params.categoryName);
 
   if (loading) {
     return <Spinner />;
   }
-
-  if (listings.length > 0) {
-    console.log(listings);
-  } else {
-    console.log("not document of this criteria");
-  }
-  console.log(params.categoryName, typeof params.categoryName);
+  // const onDelete = async () => {
+  //   const docRef = await doc(db, "listings", listing);
+  // };
   return (
     <div className="category">
       <header>
@@ -42,13 +27,19 @@ export default function Category() {
         </p>
       </header>
       {listings && listings.length > 0 ? (
-              <>
-                  <main>
-                      <ul className="categoryListing">
-                          {/* {listings.map((listing, index) => (<ListingItem />))} */}
-                      </ul>
-              </main>
-              </>
+        <>
+          <main>
+            <ul className="categoryListing">
+              {listings.map((listing, index) => (
+                <ListingItem
+                  key={index}
+                  listing={listing.data}
+                  id={listing.id}
+                />
+              ))}
+            </ul>
+          </main>
+        </>
       ) : (
         <p>No listings for {params.categoryName}</p>
       )}
