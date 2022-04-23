@@ -5,6 +5,7 @@ import VisibilityIcon from "../assets/svg/visibilityIcon.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../context/AuthContext";
+import OAuth from "../components/OAuth";
 
 export default function SignIn() {
   const { notify, auth } = useContext(AuthContext);
@@ -83,6 +84,7 @@ export default function SignIn() {
         </form>
 
         {/* Google OAuth */}
+        <OAuth />
 
         <Link to={{ pathname: "/sign-up" }} className="registerLink">
           Créer un compte ?

@@ -9,6 +9,7 @@ import Offers from "./pages/Offers";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Category from "./pages/Category";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Explore />} />
+          <Route exact path="/category/:categoryName" element={<Category />} />
           <Route exact path="/forgot-password" element={<ForgotPassword />} />
           <Route exact path="/offers" element={<Offers />} />
           <Route exact path="/profile" element={<PrivateRoute />}>
